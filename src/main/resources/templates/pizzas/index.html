@@ -15,10 +15,11 @@
   <th:block th:replace="~{fragments/fragments :: searchBar}"></th:block>
   <!-- SEARCH BAR -->
 
+  <h5 class="text-center mt-5">Ciao [[${username}]]</h5>
   <h1 class="text-center p-2 mt-4">PIZZAS LIST</h1>
 
   <div class="container d-flex justify-content-end">
-    <a th:href="@{pizzas/create}" class="btn btn-warning">Create new pizza</a>
+    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{pizzas/create}" class="btn btn-warning">Create new pizza</a>
   </div>
 
   <th:block th:insert="~{fragments/fragments :: pizzasList}"></th:block>

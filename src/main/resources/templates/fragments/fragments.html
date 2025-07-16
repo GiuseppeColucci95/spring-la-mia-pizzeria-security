@@ -28,10 +28,15 @@
             <li class="nav-item">
               <a class="nav-link" th:href="@{/pizzas}">Pizzas</a>
             </li>
-            <li class="nav-item">
+            <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
               <a class="nav-link" th:href="@{/ingredients}">Ingredients</a>
             </li>
           </ul>
+        </div>
+        <div class="user-info">
+          Logged user: <span sec:authentication="name" class="fw-bold me-2"></span>
+          Roles: <span sec:authentication="principal.authorities" class="fst-italic me-2"></span>
+          <a class="btn btn-sm btn-outline-danger" href="/logout">Sign out</a>
         </div>
       </div>
     </nav>
@@ -53,14 +58,16 @@
                   <h5 class="m-0">Price: [[*{price}]]€</h5>
                 </div>
                 <div class="d-flex align-items-center">
-                  <a th:href="@{/pizzas/{id}/discount(id=*{id})}" class="btn m-0 p-0">💰</a>
+                  <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/pizzas/{id}/discount(id=*{id})}"
+                    class="btn m-0 p-0">💰</a>
                   <a class="btn m-0 p-0" th:href="@{/pizzas/{id}(id=*{id})}">ℹ️</a>
-                  <a class="text-decoration-none btn m-0 p-0" th:href="@{/pizzas/edit/{id}(id=*{id})}">✏</a>
+                  <a sec:authorize="hasAuthority('ADMIN')" class="text-decoration-none btn m-0 p-0"
+                    th:href="@{/pizzas/edit/{id}(id=*{id})}">✏</a>
                   <!-- <form th:action="@{/pizzas/delete/{id}(id=*{id})}" method="post">
                     <button class="btn m-0 p-0" type="submit">🗑️</button>
                   </form> -->
 
-                  <button type="button" class="btn p-0 m-0" data-bs-toggle="modal"
+                  <button sec:authorize="hasAuthority('ADMIN')" type="button" class="btn p-0 m-0" data-bs-toggle="modal"
                     th:data-bs-target="'#delete-modal-' + ${pizza.id}">
                     🗑️
                   </button>

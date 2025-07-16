@@ -22,7 +22,8 @@
 
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="m-0 p-0">OFFERS ON THIS PIZZA</h2>
-        <a th:href="@{/pizzas/{id}/discount(id=*{id})}" class="btn btn-warning">New offer</a>
+        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/pizzas/{id}/discount(id=*{id})}"
+          class="btn btn-warning">New offer</a>
       </div>
       <!-- title and button -->
 
@@ -36,8 +37,10 @@
               <h5 th:if="${offer.endDate==null}">End Date: Not Ended Yet</h5>
             </div>
             <div class="me-2">
-              <a th:href="@{/discounts/{id}/edit(id=*{id})}" class="btn btn-warning">Edit</a>
-              <a th:href="@{/pizzas/{id}/discount(id=*{id})}" class="btn btn-danger">Delete</a>
+              <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/discounts/{id}/edit(id=*{id})}"
+                class="btn btn-warning">Edit</a>
+              <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/pizzas/{id}/discount(id=*{id})}"
+                class="btn btn-danger">Delete</a>
             </div>
           </div>
         </li>
